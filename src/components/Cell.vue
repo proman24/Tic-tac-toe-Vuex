@@ -1,5 +1,5 @@
 <template>
-  <div id="cell" @click="makeMove" :class="cellClass">
+  <div id="cell" refs="cell" :class="cellClass" :style="{top:computedTop, left:computedLeft}">
     <span id="text">{{ this.player ? this.player : ""}}</span>
   </div>
 </template>
@@ -7,19 +7,26 @@
 <script>
 export default {
     name:'Cell',
-    data(){
-        return{
-            player:null
+    props:{
+        player:{
+            type:String
+        },
+        top:{
+            type:Number
+        },
+        left:{
+            type:Number
         }
     },
     computed:{
         cellClass(){
             return this.player
-        }
-    },
-    methods:{
-        makeMove:function(){
-            this.player='X'
+        },
+        computedTop(){
+            return this.top*200+'px'
+        },
+        computedLeft(){
+            return this.left*200+'px'
         }
     }
 }
@@ -27,10 +34,11 @@ export default {
 
 <style>
 #cell{
-    position:relative;
+    position:fixed;
     height: 200px;
     width:200px;
     border:1px solid black;
+    display: block;
 }
 .X{
     background: burlywood;
