@@ -1,6 +1,8 @@
 <template>
   <div id="scoreBoard">
+      <h1>
       <span id="label">X : </span> {{ xScore }} || <span id="label">O : </span> {{ oScore }}
+    </h1>
   </div>
 </template>
 
@@ -19,7 +21,4 @@ export default {
 </script>
 
 <style>
-#scoreBoard{
-
-}
 </style>

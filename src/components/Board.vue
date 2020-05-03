@@ -2,8 +2,13 @@
   <div id="board">
       <!-- <cell :player="player" @click.native="checkPlayer" :top="2" :left="2" /> -->
       <template v-if="winner!=null">
-        {{ "Winner of the game is " + winner}}
-    </template>
+        <h3>{{ "Winner of the game is " + winner}}</h3> <br>
+        <h3>{{ "New Game will start in " + 5 + " seconds..." }}</h3>
+        </template>
+        <template v-if="draw==true">
+        <h3>{{ "Game is draw!!"}}</h3> <br>
+        <h3>{{ "New Game will start in " + 5 + " seconds..." }}</h3>
+        </template>
       <div v-for="row in 3" :key="row">
           <div v-for="col in 3" :key="col" >
                <cell :player="board[row-1][col-1]" @click.native="move(row,col)" :top="row" :left="col">
@@ -18,7 +23,7 @@
 
 <script>
 import Cell from './Cell.vue'
-import { mapState } from "vuex"
+import { mapGetters } from "vuex"
 
 export default {
     name:"board",
@@ -26,11 +31,12 @@ export default {
         Cell
     },
     computed:{
-        ...mapState({
-            turn: state => state.game.turn,
-            board: state => state.game.board,
-            winner: state => state.game.winner
-        })
+        ...mapGetters([
+            "turn",
+            "board",
+            "winner",
+            "draw"
+        ])
     },
     methods:{
         move(row,col){

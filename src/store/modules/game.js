@@ -4,7 +4,8 @@ export const state = {
     board:[["", "", ""], ["", "", ""], ["", "", ""]],
     end:false,
     winner:null,
-    turnCount:0
+    turnCount:0,
+    draw:false
 }
 
 export const mutations = {
@@ -28,9 +29,10 @@ export const mutations = {
     RESET_GAME(state){
         state.board=[["", "", ""], ["", "", ""], ["", "", ""]]
         state.end=false
-        state.winner=null,
+        state.winner=null
         state.turn="O"
         state.turnCount=0
+        state.draw = false
     }
 }
 
@@ -78,11 +80,8 @@ export const actions = {
         return false
     },
     move({ commit, state, dispatch}, {row, col}){
-
-        console.log("turns", state.turnCount)
         
         if (state.board[row-1][col-1] != "" | state.end){
-            console.log("Not Empty")
             return false
         }
 
@@ -98,7 +97,7 @@ export const actions = {
             }
             else
                 if (state.turnCount == 9){
-                    console.log("Reached limit turncount")
+                    state.draw = true
                     dispatch("resetGame")
                 }
                 return 
@@ -126,5 +125,8 @@ export const getters = {
     },
     oScore(state){
         return state.scores["O"]
+    },
+    draw(state){
+        return state.draw
     }
 }
