@@ -42,9 +42,9 @@ export default {
     cursor: pointer;
     transition: background 1s;
 }
-#cell:hover{
+/* #cell:hover{
     background: rgba(219, 52, 46, 0.5);
-}
+} */
 .X{
     background: burlywood;
 }
