@@ -1,12 +1,15 @@
 <template>
   <div id="board">
       <!-- <cell :player="player" @click.native="checkPlayer" :top="2" :left="2" /> -->
+      <template v-if="winner!=null">
+        {{ "Winner of the game is " + winner}}
+    </template>
       <div v-for="row in 3" :key="row">
           <div v-for="col in 3" :key="col" >
-               <cell :player="board[row-1][col-1]" @click.native="checkPlayer(row,col)" :top="row" :left="col">
-                <template v-if="col==3">
+               <cell :player="board[row-1][col-1]" @click.native="move(row,col)" :top="row" :left="col">
+                <!-- <template v-if="col==3">
                     X
-                </template>
+                </template> -->
                 </cell>
             </div>
         </div>
@@ -15,28 +18,24 @@
 
 <script>
 import Cell from './Cell.vue'
+import { mapState } from "vuex"
+
 export default {
     name:"board",
     components:{
         Cell
     },
-    data(){
-        return{
-            chance:0,
-            board:[["", "", ""], ["", "", ""], ["", "", ""]]
-        }
+    computed:{
+        ...mapState({
+            turn: state => state.game.turn,
+            board: state => state.game.board,
+            winner: state => state.game.winner
+        })
     },
     methods:{
-        checkPlayer:function(row,col){
-            if (this.chance)
-                this.board[row-1][col-1] = "X"
-            else
-                this.board[row-1][col-1] = "O"
-            this.chance= ! this.chance
-            // console.log("prev", this.board[row-1][col-1])
-            // this.board[row-1][col-1] = (this.board[row-1][col-1] == "O") ? "X" : "O"
-            // console.log("After", this.board[row-1][col-1])
-            this.$forceUpdate();
+        move(row,col){
+            this.$store.dispatch("move",{row,col})
+            this.$forceUpdate()
         }
     }
 }
