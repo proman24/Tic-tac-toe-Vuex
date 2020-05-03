@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #cell{
     position:fixed;
     height: 200px;

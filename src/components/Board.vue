@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Cell from '@/components/Cell.vue'
+import Cell from './Cell.vue'
 export default {
     name:"board",
     components:{
