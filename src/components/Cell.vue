@@ -39,6 +39,11 @@ export default {
     width:200px;
     border:1px solid black;
     display: block;
+    cursor: pointer;
+    transition: background 1s;
+}
+#cell:hover{
+    background: rgba(219, 52, 46, 0.5);
 }
 .X{
     background: burlywood;
@@ -52,5 +57,6 @@ export default {
     left:50%;
     position: absolute;
     transform: translate(-50%,-50%);
+    user-select: none;
 }
 </style>
