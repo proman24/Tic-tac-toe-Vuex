@@ -5,19 +5,16 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     name:"score",
-    props:{
-        xScore:{
-            type:Number,
-            default:0
-        },
-        oScore:{
-            type:Number,
-            default:0
-        }
+    computed:{
+        ...mapGetters([
+            "xScore", 
+            "oScore" 
+        ])
     }
-
 }
 </script>
 

@@ -1,4 +1,5 @@
 export const state = {
+    scores:{"X":0,"O":0},
     turn:"O",
     board:[["", "", ""], ["", "", ""], ["", "", ""]],
     end:false,
@@ -19,7 +20,14 @@ export const mutations = {
         state.end = true
     },
     SET_WINNER(state, winner){
+        state.scores[winner]++
         state.winner = winner
+    },
+    RESET_GAME(state){
+        state.board=[["", "", ""], ["", "", ""], ["", "", ""]]
+        state.end=false
+        state.winner=null,
+        state.turn="O"
     }
 }
 
@@ -81,6 +89,9 @@ export const actions = {
             if (winner){
                 commit("END_GAME")
                 commit("SET_WINNER",winner)
+                setTimeout(() => {
+                    commit("RESET_GAME")
+                },5000)
             }
             else
                 return false
@@ -97,5 +108,11 @@ export const getters = {
     },
     winner(state){
         return state.winner
+    },
+    xScore(state){
+        return state.scores["X"]
+    },
+    oScore(state){
+        return state.scores["O"]
     }
 }
