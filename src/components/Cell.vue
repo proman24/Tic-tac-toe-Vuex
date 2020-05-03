@@ -1,6 +1,7 @@
 <template>
   <div id="cell" refs="cell" :class="cellClass" :style="{top:computedTop, left:computedLeft}">
     <span id="text">{{ this.player ? this.player : ""}}</span>
+    <span id="finish"><slot></slot></span>
   </div>
 </template>
 
@@ -58,5 +59,15 @@ export default {
     position: absolute;
     transform: translate(-50%,-50%);
     user-select: none;
+}
+#finish{
+    font-size: 250px;
+    top:50%;
+    left:50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    user-select: none;
+    color:red;
+    overflow: hidden;
 }
 </style>

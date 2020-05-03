@@ -3,7 +3,11 @@
       <!-- <cell :player="player" @click.native="checkPlayer" :top="2" :left="2" /> -->
       <div v-for="row in 3" :key="row">
           <div v-for="col in 3" :key="col" >
-               <cell :player="board[row-1][col-1]" @click.native="checkPlayer(row,col)" :top="row" :left="col" />
+               <cell :player="board[row-1][col-1]" @click.native="checkPlayer(row,col)" :top="row" :left="col">
+                <template v-if="col==3">
+                    X
+                </template>
+                </cell>
             </div>
         </div>
   </div>
