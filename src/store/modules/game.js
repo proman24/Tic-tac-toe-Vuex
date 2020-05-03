@@ -3,7 +3,8 @@ export const state = {
     turn:"O",
     board:[["", "", ""], ["", "", ""], ["", "", ""]],
     end:false,
-    winner:null
+    winner:null,
+    turnCount:0
 }
 
 export const mutations = {
@@ -12,6 +13,7 @@ export const mutations = {
             state.turn = "X"
         else
             state.turn = "O"
+        state.turnCount++
     },
     MAKE_MOVE(state, {row, col}){
         state.board[row-1][col-1] = state.turn
@@ -28,6 +30,7 @@ export const mutations = {
         state.end=false
         state.winner=null,
         state.turn="O"
+        state.turnCount=0
     }
 }
 
@@ -75,8 +78,9 @@ export const actions = {
         return false
     },
     move({ commit, state, dispatch}, {row, col}){
-        console.log("Moving")
 
+        console.log("turns", state.turnCount)
+        
         if (state.board[row-1][col-1] != "" | state.end){
             console.log("Not Empty")
             return false
@@ -89,13 +93,21 @@ export const actions = {
             if (winner){
                 commit("END_GAME")
                 commit("SET_WINNER",winner)
-                setTimeout(() => {
-                    commit("RESET_GAME")
-                },5000)
+                dispatch("resetGame")
+                return
             }
             else
-                return false
+                if (state.turnCount == 9){
+                    console.log("Reached limit turncount")
+                    dispatch("resetGame")
+                }
+                return 
         })
+    },
+    resetGame({commit}){
+        setTimeout(() => {
+            commit("RESET_GAME")
+        },5000)
     }
 }
 

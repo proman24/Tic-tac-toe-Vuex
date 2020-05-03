@@ -1,18 +1,18 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import game from '@/views/Game.vue';
-import main from '@/views/Main.vue'
+// import main from '@/views/Main.vue'
 
 Vue.use(VueRouter);
 
 const routes = [
+  // {
+  //   path:"/",
+  //   name:"main",
+  //   component:main
+  // },
   {
     path:"/",
-    name:"main",
-    component:main
-  },
-  {
-    path:"/game",
     name:"Game",
     component:game
   }
